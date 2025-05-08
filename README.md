@@ -1,17 +1,28 @@
-## My Project
+# Post Quantum Python
 
-TODO: Fill this README out!
+This repository provides a Dockerfile configuring a container that supports
+Post Quantum TLS provided in CPython. All PQ capabilities are derived from
+public packages with no need to build anything from source.
 
-Be sure to:
+This sample accompanies [AWS Blog "<TITLE>"][1]
 
-* Change the title in this README
-* Edit your repository description on GitHub
+## Usage
 
-## Security
+To build and run the container, providing a shell:
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+```
+docker build . -t pq-tls-python
+docker run --rm -it pq-tls-python
+```
 
-## License
+A `run.sh` script is provided to simplify this on POSIX systems:
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
+```
+$ ./run.sh test.sh
+...
+ok
+ok
+ok
+```
 
+[1]: TODO
