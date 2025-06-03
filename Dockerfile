@@ -1,10 +1,17 @@
 FROM debian:trixie-20250428
 
+# Restrict debian repositories to official trixie
+RUN rm -f /etc/apt/sources.list.d/*
+RUN cat <<EOF >/etc/apt/sources.list.d/sources.list
+deb http://deb.debian.org/debian trixie main
+deb http://deb.debian.org/debian trixie-updates main
+deb http://deb.debian.org/debian-security trixie-security main
+EOF
 RUN apt-get update
 RUN apt-get install -y \
     python3=3.13.3-1 \
     python3-venv=3.13.3-1 \
-    openssl=3.5.0-1
+    openssl>=3.5.0
 
 COPY . /app
 WORKDIR /app
