@@ -1,6 +1,3 @@
-import os
-import ssl
-
 import boto3
 
 REGION = "ap-southeast-1"

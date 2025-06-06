@@ -12,7 +12,8 @@ ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 # rather than (≥ TLSv1.3) SupportedGroups.
 ctx.minimum_version = ssl.TLSVersion.TLSv1_3
 ctx.load_verify_locations(CERT_STORE)
-sock = socket.create_connection((HOST, 443))
-ssock = ctx.wrap_socket(sock, server_hostname=HOST)
-ssock.close()
+with socket.create_connection((HOST, 443)) as s:
+    with ctx.wrap_socket(s, server_hostname=HOST) as ss:
+        ss.send(f"GET /ping HTTP/1.1\r\nHost: {HOST}\r\n\r\n".encode())
+        assert b"200 OK" in ss.recv(4096)
 print("ok")
